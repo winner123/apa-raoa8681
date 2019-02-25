@@ -8,6 +8,7 @@ CLASSES = \
 	GraphicsRunner.java \
 	Robot.java \
 	SmileyFace.java \
+	Shape.java \
 	ShapePanel.java
 
 default: classes

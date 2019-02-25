@@ -18,7 +18,7 @@ class Robot extends Canvas
     setBackground(Color.WHITE);   	
     setVisible(true);
   }
-
+  
   public void paint( Graphics window )
   {
     window.setColor(Color.BLUE);
@@ -30,7 +30,7 @@ class Robot extends Canvas
     //call other methods
     
   }
-
+  
   public void head( Graphics window )
   {
     window.setColor(Color.YELLOW);
