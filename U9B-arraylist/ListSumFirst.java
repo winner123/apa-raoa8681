@@ -10,6 +10,8 @@ public class ListSumFirst
 {
   public static int go(List<Integer> ray)
   {
+
     return 0;
+
   }
 }
