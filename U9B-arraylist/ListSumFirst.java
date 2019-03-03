@@ -10,8 +10,17 @@ public class ListSumFirst
 {
   public static int go(List<Integer> ray)
   {
-
-    return 0;
+    int hello = ray.get(0);
+    int sum = 0;
+    for(int i = 1; i<ray.size(); i++){
+      if(ray.get(i) > hello){
+        sum = sum + ray.get(i);
+      }
+    }
+    if(sum == 0){
+      return -1;
+    }
+    return sum;
 
   }
 }
