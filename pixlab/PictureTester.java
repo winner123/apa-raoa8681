@@ -25,6 +25,14 @@ public class PictureTester
     caterpillar.mirrorVertical();
     caterpillar.explore();
   }
+  public static void testBlur(int x, int y, int w, int h, int n)
+  {
+     Picture redMoto = new Picture("redMotorcycle.jpg");
+     for (int i = 0; i<n; i++){
+        redMoto.blur(x,y,w,h);
+      }
+      redMoto.explore();
+  }
 
   public static void testMirrorArms(){
     Picture snowman = new Picture("snowman.jpg");
@@ -142,7 +150,8 @@ public static void testGrayscale()
     //testCollage();
     //testCopy();
     //testEdgeDetection();
-    testEdgeDetection2();
+    //testEdgeDetection2();
+    testBlur(174, 629, 100, 10, 10);
     //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);

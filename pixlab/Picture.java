@@ -510,8 +510,7 @@ public void grayscaleLuminosity()
     Color rightColor = null;
     for (int row = 0; row < pixels.length; row++)
     {
-      for (int col = 0;
-           col < pixels[0].length-1; col++)
+      for (int col = 0; col < pixels[0].length-1; col++)
       {
         leftPixel = pixels[row][col];
         rightPixel = pixels[row][col+1];
@@ -524,6 +523,234 @@ public void grayscaleLuminosity()
       }
     }
   }
+
+  public void blur (int x, int y, int w, int h){
+    Pixel[][] pixels = this.getPixels2D();
+    int count = 0;
+    int numberOfLoops = 0;
+    int countBlue = 0;
+    int countRed = 0;
+    int countGreen = 0;
+    int width = x+w;
+    int height = h+y;
+    
+    for(int i = x; i < width; i++){
+      for(int j = y; j < height; j++){
+
+          if(i+1 < pixels.length && i-1 > 0 && j+1<pixels[i].length && j-1 > 0){
+
+              Pixel p1 = pixels[i+1][j];
+              Pixel p2 = pixels[i-1][j];
+              Pixel p3 = pixels[i][j+1];
+              Pixel p4 = pixels[i][j-1];
+              Pixel p5 = pixels[i+1][j+1];
+              Pixel p6 = pixels[i+1][j-1];
+              Pixel p7 = pixels[i-1][j+1];
+              Pixel p8 = pixels[i-1][j-1];
+
+              countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue() + p4.getBlue() + p5.getBlue() + p6.getBlue() + p7.getBlue() + p8.getBlue();
+              countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() + p4.getGreen() + p5.getGreen() + p6.getGreen() + p7.getGreen() + p8.getGreen();
+              countRed = p1.getRed() + p2.getRed() + p3.getRed() + p4.getRed() + p5.getRed() + p6.getRed() + p7.getRed() + p8.getRed();
+              countBlue = countBlue / 8;
+              countGreen = countGreen / 8;
+              countRed = countRed / 8;
+
+              pixels[i][j].setRed(countRed);
+              pixels[i][j].setGreen(countGreen);
+              pixels[i][j].setBlue(countBlue);
+        }
+        //top
+        if(i+1 < pixels.length && i-1 < 0 && j+1<pixels[i].length && j-1 > 0){
+
+            Pixel p1 = pixels[i+1][j];
+            //Pixel p2 = pixels[i-1][j];
+            Pixel p2 = pixels[i][j+1];
+            Pixel p3 = pixels[i][j-1];
+            Pixel p4 = pixels[i+1][j+1];
+            Pixel p5 = pixels[i+1][j-1];
+            //Pixel p7 = pixels[i-1][j+1];
+            //Pixel p8 = pixels[i-1][j-1];
+
+            countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue() + p4.getBlue() + p5.getBlue();
+            countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() + p4.getGreen() + p5.getGreen();
+            countRed = p1.getRed() + p2.getRed() + p3.getRed() + p4.getRed() + p5.getRed();
+            countBlue = countBlue / 5;
+            countGreen = countGreen / 5;
+            countRed = countRed / 5;
+
+            pixels[i][j].setRed(countRed);
+            pixels[i][j].setGreen(countGreen);
+            pixels[i][j].setBlue(countBlue);
+      }
+      //bottom
+      if(i+1 > pixels.length && i-1 > 0 && j+1<pixels[i].length && j-1 > 0){
+
+          //Pixel p1 = pixels[i+1][j];
+          Pixel p1 = pixels[i-1][j];
+          Pixel p2 = pixels[i][j+1];
+          Pixel p3 = pixels[i][j-1];
+          //Pixel p4 = pixels[i+1][j+1];
+          //Pixel p5 = pixels[i+1][j-1];
+          Pixel p4 = pixels[i-1][j+1];
+          Pixel p5 = pixels[i-1][j-1];
+
+          countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue() + p4.getBlue() + p5.getBlue();
+          countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() + p4.getGreen() + p5.getGreen();
+          countRed = p1.getRed() + p2.getRed() + p3.getRed() + p4.getRed() + p5.getRed();
+          countBlue = countBlue / 5;
+          countGreen = countGreen / 5;
+          countRed = countRed / 5;
+
+          pixels[i][j].setRed(countRed);
+          pixels[i][j].setGreen(countGreen);
+          pixels[i][j].setBlue(countBlue);
+    }
+
+    //right
+    if(i+1 < pixels.length && i-1 > 0 && j+1>pixels[i].length && j-1 > 0){
+
+        Pixel p1 = pixels[i+1][j];
+        Pixel p2 = pixels[i-1][j];
+      //  Pixel p3 = pixels[i][j+1];
+        Pixel p3 = pixels[i][j-1];
+        //Pixel p5 = pixels[i+1][j+1];
+        Pixel p4 = pixels[i+1][j-1];
+        //Pixel p7 = pixels[i-1][j+1];
+        Pixel p5 = pixels[i-1][j-1];
+
+        countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue() + p4.getBlue() + p5.getBlue() ;
+        countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() + p4.getGreen() + p5.getGreen() ;
+        countRed = p1.getRed() + p2.getRed() + p3.getRed() + p4.getRed() + p5.getRed() ;
+        countBlue = countBlue / 5;
+        countGreen = countGreen / 5;
+        countRed = countRed / 5;
+
+        pixels[i][j].setRed(countRed);
+        pixels[i][j].setGreen(countGreen);
+        pixels[i][j].setBlue(countBlue);
+  }
+
+        if(i+1 < pixels.length && i-1 > 0 && j+1<pixels[i].length && j-1 < 0){
+
+            Pixel p1 = pixels[i+1][j];
+            Pixel p2 = pixels[i-1][j];
+            Pixel p3 = pixels[i][j+1];
+            //Pixel p4 = pixels[i][j-1];
+            Pixel p4 = pixels[i+1][j+1];
+            //Pixel p6 = pixels[i+1][j-1];
+            Pixel p5 = pixels[i-1][j+1];
+            //Pixel p8 = pixels[i-1][j-1];
+
+            countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue() + p4.getBlue() + p5.getBlue();
+            countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() + p4.getGreen() + p5.getGreen();
+            countRed = p1.getRed() + p2.getRed() + p3.getRed() + p4.getRed() + p5.getRed();
+            countBlue = countBlue / 5;
+            countGreen = countGreen / 5;
+            countRed = countRed / 5;
+
+            pixels[i][j].setRed(countRed);
+            pixels[i][j].setGreen(countGreen);
+            pixels[i][j].setBlue(countBlue);
+      }
+
+            if(i+1 > pixels.length && i-1 > 0 && j+1>pixels[i].length && j-1 > 0){
+
+                //Pixel p1 = pixels[i+1][j];
+                Pixel p1 = pixels[i-1][j];
+                //Pixel p3 = pixels[i][j+1];
+                Pixel p2 = pixels[i][j-1];
+                //Pixel p4 = pixels[i+1][j+1];
+                //Pixel p6 = pixels[i+1][j-1];
+                //Pixel p5 = pixels[i-1][j+1];
+                Pixel p3 = pixels[i-1][j-1];
+
+                countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue();
+                countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() ;
+                countRed = p1.getRed() + p2.getRed() + p3.getRed() ;
+                countBlue = countBlue / 3;
+                countGreen = countGreen / 3;
+                countRed = countRed / 3;
+
+                pixels[i][j].setRed(countRed);
+                pixels[i][j].setGreen(countGreen);
+                pixels[i][j].setBlue(countBlue);
+          }
+
+                if(i+1 > pixels.length && i-1 > 0 && j+1<pixels[i].length && j-1 < 0){
+
+                    //Pixel p1 = pixels[i+1][j];
+                    Pixel p1 = pixels[i-1][j];
+                    Pixel p2 = pixels[i][j+1];
+                    //Pixel p2 = pixels[i][j-1];
+                    //Pixel p4 = pixels[i+1][j+1];
+                    //Pixel p6 = pixels[i+1][j-1];
+                    Pixel p3 = pixels[i-1][j+1];
+                    //Pixel p3 = pixels[i-1][j-1];
+
+                    countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue();
+                    countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() ;
+                    countRed = p1.getRed() + p2.getRed() + p3.getRed() ;
+                    countBlue = countBlue / 3;
+                    countGreen = countGreen / 3;
+                    countRed = countRed / 3;
+
+                    pixels[i][j].setRed(countRed);
+                    pixels[i][j].setGreen(countGreen);
+                    pixels[i][j].setBlue(countBlue);
+              }
+
+              if(i+1 < pixels.length && i-1 < 0 && j+1>pixels[i].length && j-1 > 0){
+
+                  Pixel p1 = pixels[i+1][j];
+                  //Pixel p2 = pixels[i-1][j];
+                  //Pixel p3 = pixels[i][j+1];
+                  Pixel p2 = pixels[i][j-1];
+                  //Pixel p5 = pixels[i+1][j+1];
+                  Pixel p3 = pixels[i+1][j-1];
+                  //Pixel p7 = pixels[i-1][j+1];
+                  //Pixel p8 = pixels[i-1][j-1];
+
+                  countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue() ;
+                  countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() ;
+                  countRed = p1.getRed() + p2.getRed() + p3.getRed() ;
+                  countBlue = countBlue / 3;
+                  countGreen = countGreen / 3;
+                  countRed = countRed / 3;
+
+                  pixels[i][j].setRed(countRed);
+                  pixels[i][j].setGreen(countGreen);
+                  pixels[i][j].setBlue(countBlue);
+            }
+            if(i+1 < pixels.length && i-1 < 0 && j+1<pixels[i].length && j-1 < 0){
+
+                Pixel p1 = pixels[i+1][j];
+                //Pixel p2 = pixels[i-1][j];
+                Pixel p2 = pixels[i][j+1];
+                //Pixel p2 = pixels[i][j-1];
+                Pixel p3 = pixels[i+1][j+1];
+                //Pixel p3 = pixels[i+1][j-1];
+                //Pixel p7 = pixels[i-1][j+1];
+                //Pixel p8 = pixels[i-1][j-1];
+
+                countBlue = p1.getBlue() + p2.getBlue() + p3.getBlue() ;
+                countGreen = p1.getGreen() + p2.getGreen() + p3.getGreen() ;
+                countRed = p1.getRed() + p2.getRed() + p3.getRed() ;
+                countBlue = countBlue / 3;
+                countGreen = countGreen / 3;
+                countRed = countRed / 3;
+
+                pixels[i][j].setRed(countRed);
+                pixels[i][j].setGreen(countGreen);
+                pixels[i][j].setBlue(countBlue);
+            }
+
+
+      }
+    }
+
+  }
+
+
 
   public void edgeDetection2(int edgeDist)
   	{
