@@ -151,7 +151,7 @@ public static void testGrayscale()
     //testCopy();
     //testEdgeDetection();
     //testEdgeDetection2();
-    testBlur(174, 629, 100, 10, 10);
+    testBlur(0, 0 , 638, 479, 10);
     //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);

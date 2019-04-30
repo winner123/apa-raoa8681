@@ -531,11 +531,11 @@ public void grayscaleLuminosity()
     int countBlue = 0;
     int countRed = 0;
     int countGreen = 0;
-    int width = x+w;
-    int height = h+y;
-    
-    for(int i = x; i < width; i++){
-      for(int j = y; j < height; j++){
+    int width = y+w;
+    int height = x+h;
+
+    for(int i = x; i < height; i++){
+      for(int j = y; j < width; j++){
 
           if(i+1 < pixels.length && i-1 > 0 && j+1<pixels[i].length && j-1 > 0){
 
