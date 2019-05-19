@@ -21,12 +21,13 @@ public class Ship extends MovingThing
 
   public Ship(int x, int y)
   {
-    //add code here
+    super(x,y,10,10);
   }
 
   public Ship(int x, int y, int s)
   {
-    //add code here
+    super(x,y,10,10);
+    speed = s;
   }
 
   public Ship(int x, int y, int w, int h, int s)
@@ -47,18 +48,29 @@ public class Ship extends MovingThing
 
   public void setSpeed(int s)
   {
-    //add more code
+    speed = s;
   }
 
   public int getSpeed()
   {
-    return 0;
+    return speed;
   }
 
   public void move(String direction)
   {
-    //add code here
-  }
+    if(direction.equals("UP") && getY() > 0) {
+      setY(getY() - getSpeed());
+    }
+    if(direction.equals("DOWN") && getY() + getHeight() < 575) {
+      setY(getY() + getSpeed());
+    }
+    if(direction.equals("LEFT") && getX() > 0) {
+      setX(getX() - getSpeed());
+    }
+    if(direction.equals("RIGHT") && getX() + getWidth() < 800) {
+      setX(getX() + getSpeed());
+    }
+}
 
   public void draw( Graphics window )
   {
