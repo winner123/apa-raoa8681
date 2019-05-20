@@ -92,11 +92,11 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     }
 
     if(keys[2] == true){
-      ship.move("DOWN");
+      ship.move("UP");
     }
 
     if(keys[3] == true){
-      ship.move("UP");
+      ship.move("DOWN");
     }
 
     if (keys[4] == true){
@@ -107,10 +107,9 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
     //add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
 
-
+    horde.removeDeadOnes(shots.getList());
     horde.moveEmAll();
     horde.drawEmAll(graphToBack);
-    horde.removeDeadOnes(shots.getList());
     shots.drawEmAll(graphToBack);
 
     twoDGraph.drawImage(back, null, 0, 0);
