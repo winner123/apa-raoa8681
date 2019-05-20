@@ -38,7 +38,7 @@ public class Ammo extends MovingThing
   {
 
     window.setColor(Color.yellow);
-    window.fillRect(super.getX()+18, super.getY(), 10, 10);
+    window.fillRect(super.getX()+28, super.getY(), 15, 15);
     move("UP");
   }
 

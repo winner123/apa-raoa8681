@@ -9,14 +9,15 @@ import static java.lang.Character.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import java.awt.Font;
 public class OuterSpace extends Canvas implements KeyListener, Runnable
 {
   private Ship ship;
   private Alien alienOne;
   private Alien alienTwo;
-
-
+  private int size = 40;
+  private int speed = 1;
+  private int i = 0;
 
   // uncomment once you are ready for this part
 
@@ -37,11 +38,11 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     //instantiate other instance variables
     //Ship, Alien
 
-    ship = new Ship(400, 500, 50, 50, 2);
+    ship = new Ship(400, 500, 70, 70, 2);
     //alienOne = new Alien(75, 100, 40, 40, 1);
     //alienTwo = new Alien(75, 175, 40, 40, 1);
 
-    horde = new AlienHorde(12,1);
+    horde = new AlienHorde(size,1);
     shots = new Bullets();
 
 
@@ -100,7 +101,11 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     }
 
     if (keys[4] == true){
+      if(i > 0){
       shots.add(new Ammo(ship.getX(),ship.getY(),1));
+      i--;
+
+    }
       keys[4] = false;
     }
 
@@ -111,6 +116,12 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     horde.moveEmAll();
     horde.drawEmAll(graphToBack);
     shots.drawEmAll(graphToBack);
+    if(horde.getSize() == 0) {
+      size = size + 2;
+      speed = speed + 1;
+      horde = new AlienHorde(size,speed);
+
+  }
 
     twoDGraph.drawImage(back, null, 0, 0);
   }
@@ -137,6 +148,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     if (e.getKeyCode() == KeyEvent.VK_SPACE)
     {
       keys[4] = true;
+
     }
     repaint();
   }
@@ -162,6 +174,8 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     if (e.getKeyCode() == KeyEvent.VK_SPACE)
     {
       keys[4] = false;
+      i = 1;
+
     }
     repaint();
   }

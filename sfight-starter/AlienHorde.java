@@ -12,10 +12,11 @@ public class AlienHorde
   private List<Alien> aliens;
   private static final int WIDTH = 800;
   private static final int HEIGHT = 600;
-
+  private int s = 0;
   public AlienHorde(int size)
   {
     aliens = new ArrayList<>(size);
+    s = size;
   }
 
   public AlienHorde(int size, int speed)
@@ -23,15 +24,15 @@ public class AlienHorde
     //initalize ArrayList
     aliens = new ArrayList<Alien>();
     //and fill with size amount of aliens (75 pixels apart)
-    int c = 25, r = 50;
+    int x = 25,y = 50;
     for (int i = 0; i < size; i++)
     {
-      aliens.add(new Alien(r,c,speed));
-      r += 75;
+      aliens.add(new Alien(x,y,speed));
+     y += 55;
       if (r + aliens.get(i).getWidth() >= WIDTH)
       {
-        r = 50;
-        c += 75;
+       y = 30;
+       x += 55;
       }
     }
   }
@@ -74,7 +75,9 @@ public class AlienHorde
       }
     }
   }
-
+  public int getSize(){
+    return aliens.size();
+  }
   public String toString()
   {
     return "" + aliens;

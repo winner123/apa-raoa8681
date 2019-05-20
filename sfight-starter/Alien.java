@@ -56,7 +56,7 @@ public class Alien extends MovingThing
     if(getX() >= 800-getWidth() || getX() <= 0)
     {
       setSpeed(getSpeed()*-1);
-      setY(getY()+25);
+      setY(getY()+3);
     }
     setX(getX()+getSpeed());
   }
