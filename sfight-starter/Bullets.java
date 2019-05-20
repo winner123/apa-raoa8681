@@ -1,7 +1,3 @@
-//(c) A+ Computer Science
-//www.apluscompsci.com
-//Name -
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,32 +12,50 @@ public class Bullets
 
   public Bullets()
   {
+    ammo = new ArrayList<>();
   }
 
   public void add(Ammo al)
   {
+    ammo.add(al);
   }
 
   //post - draw each Ammo
   public void drawEmAll( Graphics window )
   {
+    cleanEmUp();
+    for (Ammo a : ammo)
+    {
+      a.draw(window);
+    }
   }
 
   public void moveEmAll()
   {
+    for (Ammo a : ammo)
+    {
+      a.move("UP");
+    }
   }
 
   public void cleanEmUp()
   {
+    for(int i = 0; i < ammo.size(); i++)
+    {
+      if(ammo.get(i).getY()-ammo.get(i).getHeight() < 0)
+      {
+        ammo.remove(i);
+      }
+    }
   }
 
   public List<Ammo> getList()
   {
-    return null;
+    return ammo;
   }
 
   public String toString()
   {
-    return "";
+    return "" + ammo;
   }
 }

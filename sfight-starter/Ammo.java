@@ -1,7 +1,3 @@
-//(c) A+ Computer Science
-//www.apluscompsci.com
-//Name -
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -19,37 +15,43 @@ public class Ammo extends MovingThing
 
   public Ammo(int x, int y)
   {
-    //add code
+    this(x, y, 5);
   }
 
   public Ammo(int x, int y, int s)
   {
-    //add code
+    super(x, y);
+    this.speed = s;
   }
 
   public void setSpeed(int s)
   {
-    //add code
+    this.speed = s;
   }
 
   public int getSpeed()
   {
-    return 0;
+    return 5;
   }
 
   public void draw( Graphics window )
   {
-    //add code to draw the ammo
+    window.setColor(Color.BLACK);
+    window.fillRect(super.getX()+18,super.getY()+10,10,10);
+
+    window.setColor(Color.yellow);
+    window.fillRect(super.getX()+18, super.getY(), 10, 10);
+    move("UP");
   }
-        
-        
+
+
   public void move( String direction )
   {
-    //add code to draw the ammo
+    setY(getY() - getSpeed());
   }
 
   public String toString()
   {
-    return "";
+    return super.toString() + " " + getSpeed();
   }
 }
