@@ -1,7 +1,3 @@
-//(c) A+ Computer Science
-//www.apluscompsci.com
-//Name -
-
 import java.io.File;
 import java.net.URL;
 import java.awt.Color;
@@ -21,19 +17,17 @@ public class Alien extends MovingThing
 
   public Alien(int x, int y)
   {
-    super(x,y,10,10);
-    speed = 10;
+    this(x,y,30,30,0);
   }
 
   public Alien(int x, int y, int s)
   {
-    super(x,y,10,10);
-    speed = s;
+    this(x,y,30,30,s);
   }
 
   public Alien(int x, int y, int w, int h, int s)
   {
-    super(x, y, w,h);
+    super(x,y,w,h);
     speed=s;
     try
     {
@@ -43,6 +37,7 @@ public class Alien extends MovingThing
     catch(Exception e)
     {
       //feel free to do something here
+      System.out.println("ERROR ... Initiate Self-Destruct Protocol");
     }
   }
 
@@ -58,28 +53,22 @@ public class Alien extends MovingThing
 
   public void move(String direction)
   {
-    if (direction.equals("DOWN")) {
-            super.setY(super.getY() + getSpeed());
-        }
-        if (direction.equals("UP")) {
-            super.setY(super.getY() - getSpeed());
-        }
-        if (direction.equals("LEFT")) {
-            super.setX(super.getX() - getSpeed());
-        }
-        if (direction.equals("RIGHT")) {
-            super.setX(super.getX() + getSpeed());
-        }
-
+    if(getX() >= 800-getWidth() || getX() <= 0)
+    {
+      setSpeed(getSpeed()*-1);
+      setY(getY()+25);
+    }
+    setX(getX()+getSpeed());
   }
 
   public void draw( Graphics window )
   {
+    move("DOWN");
     window.drawImage(image,getX(),getY(),getWidth(),getHeight(),null);
   }
 
   public String toString()
   {
-    return "";
+    return super.toString() + " " + getSpeed();
   }
 }
