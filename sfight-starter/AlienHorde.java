@@ -1,4 +1,8 @@
 
+//(c) A+ Computer Science
+//www.apluscompsci.com
+//Name -
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,28 +16,27 @@ public class AlienHorde
   private List<Alien> aliens;
   private static final int WIDTH = 800;
   private static final int HEIGHT = 600;
-  private int s = 0;
+
   public AlienHorde(int size)
   {
     aliens = new ArrayList<>(size);
-    s = size;
   }
 
   public AlienHorde(int size, int speed)
   {
-    //initalize ArrayList
     aliens = new ArrayList<Alien>();
-    //and fill with size amount of aliens (75 pixels apart)
-    int x = 25,y = 50;
+    int x = 25, y = 50;
     for (int i = 0; i < size; i++)
     {
-      aliens.add(new Alien(x,y,speed));
-     y += 55;
-      if (r + aliens.get(i).getWidth() >= WIDTH)
+      aliens.add(new Alien(y,x,speed));
+      y += 75;
+      if (y + aliens.get(i).getWidth() >= WIDTH)
       {
-       y = 30;
-       x += 55;
+        y = 50;
+        x += 75;
+
       }
+
     }
   }
 
@@ -64,20 +67,26 @@ public class AlienHorde
     {
       for(int j = 0; j < aliens.size(); j++)
       {
-        if(shots.get(i).getX() >= aliens.get(j).getX() && shots.get(i).getX() <= aliens.get(j).getX()+aliens.get(j).getWidth())
+        if(collisionShot(i,j, shots))
         {
-          if(shots.get(i).getY() >= aliens.get(j).getY() && shots.get(i).getY() <= aliens.get(j).getY()+aliens.get(j).getHeight())
-          {
+
             shots.remove(i);
             aliens.remove(j);
-          }
+
         }
       }
     }
   }
+
+  public boolean collisionShot(int i, int j, List<Ammo> shots){
+    boolean hi = shots.get(i).getX() >= aliens.get(j).getX() && shots.get(i).getX() <= aliens.get(j).getX()+aliens.get(j).getWidth();
+    boolean bye = shots.get(i).getY() >= aliens.get(j).getY() && shots.get(i).getY() <= aliens.get(j).getY()+aliens.get(j).getHeight();
+    return (hi && bye);
+  }
   public int getSize(){
     return aliens.size();
   }
+
   public String toString()
   {
     return "" + aliens;

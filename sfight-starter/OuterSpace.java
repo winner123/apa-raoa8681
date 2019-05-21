@@ -19,8 +19,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
   private int speed = 1;
   private int i = 0;
 
-  // uncomment once you are ready for this part
-
+  private int hordeCleared = 0;
   private AlienHorde horde;
   private Bullets shots;
 
@@ -35,12 +34,9 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
     keys = new boolean[5];
 
-    //instantiate other instance variables
-    //Ship, Alien
+
 
     ship = new Ship(400, 500, 70, 70, 2);
-    //alienOne = new Alien(75, 100, 40, 40, 1);
-    //alienTwo = new Alien(75, 175, 40, 40, 1);
 
     horde = new AlienHorde(size,1);
     shots = new Bullets();
@@ -59,17 +55,12 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
   public void paint( Graphics window )
   {
-    //set up the double buffering to make the game animation nice and smooth
-    Graphics2D twoDGraph = (Graphics2D)window;
+     Graphics2D twoDGraph = (Graphics2D)window;
 
-    //take a snap shop of the current screen and same it as an image
-    //that is the exact same width and height as the current screen
-    if(back==null)
+     if(back==null)
       back = (BufferedImage)(createImage(getWidth(),getHeight()));
 
-    //create a graphics reference to the back ground image
-    //we will draw all changes on the background image
-    Graphics graphToBack = back.createGraphics();
+     Graphics graphToBack = back.createGraphics();
 
     graphToBack.setColor(Color.BLUE);
     graphToBack.drawString("StarFighter ", 25, 50 );
@@ -78,15 +69,12 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     graphToBack.fillRect(0,0,800,600);
 
     ship.draw(graphToBack);
-    //alienOne.draw(graphToBack);
-    //alienTwo.draw(graphToBack);
 
     if(keys[0] == true)
     {
       ship.move("LEFT");
     }
 
-    //add code to move Ship, Alien, etc.
 
     if(keys[1] == true){
       ship.move("RIGHT");
@@ -110,18 +98,27 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
     }
 
 
-    //add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
 
     horde.removeDeadOnes(shots.getList());
     horde.moveEmAll();
     horde.drawEmAll(graphToBack);
     shots.drawEmAll(graphToBack);
-    if(horde.getSize() == 0) {
+    if(horde.getSize() == 0 && hordeCleared < 3) {
       size = size + 2;
       speed = speed + 1;
       horde = new AlienHorde(size,speed);
+      hordeCleared++;
 
   }
+  if(hordeCleared == 2){
+    graphToBack.setColor(Color.BLACK);
+    graphToBack.fillRect(0,0,800,600);
+    graphToBack.setColor(Color.BLUE);
+    graphToBack.setFont(new Font("serif", Font.ITALIC, 20));
+    graphToBack.drawString("Game Over", 400, 300);
+
+  }
+
 
     twoDGraph.drawImage(back, null, 0, 0);
   }
@@ -182,8 +179,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
   public void keyTyped(KeyEvent e)
   {
-    //no code needed here
-  }
+   }
 
   public void run()
   {
